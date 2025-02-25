@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма с нестандартными шрифтами и псевдоклассами</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+
+    <style>
+        @font-face {
+            font-family: 'CustomFont';
+            src: url('custom-font.woff2') format('woff2'),
+                 url('custom-font.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 400px;
+        }
+
+        .container > form > input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            display: block;
+            transition: opacity 1s ease-in-out, color 0.5s;
+            font-family: 'CustomFont', sans-serif;
+        }
+
+        .container > form > button {
+            margin-top: 10px;
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: background 0.5s, color 0.5s;
+            font-family: 'Lobster', cursive;
+        }
+
+        button:hover {
+            background-color: purple;
+            color: white;
+        }
+
+        input:focus {
+            border: 2px solid orange;
+            background-color: #fdf3d0;
+            outline: none;
+        }
+
+        ol li:nth-child(odd) {
+            background-color: #f0f0f0;
+            padding: 5px;
+        }
+
+        p:first-of-type {
+            color: rgb(47, 104, 203);
+            font-weight: bold;
+        }
+
+        ol li:last-child {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        p + p {
+            color: darkblue;
+        }
+
+        button ~ ol li {
+            transition: opacity 1s ease-in-out;
+        }
+
+        .styled {
+            color: red;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        .hidden-text {
+            opacity: 0;
+        }
+
+        .styled-paragraph {
+            color: blue;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        .hidden-list {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Форма ввода</h2>
+    
+    <form id="myForm">
+        <input type="text" placeholder="Поле 1">
+        <input type="text" placeholder="Поле 2">
+        <input type="text" placeholder="Поле 3">
+        <input type="text" placeholder="Поле 4">
+        <input type="text" placeholder="Поле 5">
+
+        <button type="button" id="btn1" onclick="changeText()">Изменить текст</button>
+        <button type="button" id="btn2" onclick="modifyElements()">Изменить стиль</button>
+    </form>
+
+    <h3>Информация</h3>
+    <p>Параграф 1: Описание...</p>
+    <p>Параграф 2: Описание...</p>
+    <p>Параграф 3: Описание...</p>
+    <p>Параграф 4: Описание...</p>
+    <p>Параграф 5: Описание...</p>
+
+    <h3>Нумерованный список</h3>
+    <ol id="numList">
+        <li>Элемент списка 1</li>
+        <li>Элемент списка 2</li>
+        <li>Элемент списка 3</li>
+        <li>Элемент списка 4</li>
+        <li>Элемент списка 5</li>
+    </ol>
+</div>
+
+<script>
+    function changeText() {
+        let inputs = document.querySelectorAll(".container > form > input");
+
+        inputs.forEach((input, index) => {
+            if ((index + 1) % 2 !== 0) {  
+                input.classList.add("styled");  
+            } else {  
+                input.classList.add("hidden-text");  
+            }
+        });
+    }
+
+    function modifyElements() {
+        let btn1 = document.getElementById("btn1");
+        btn1.textContent = "Текст изменён";
+        btn1.style.background = "green";
+        btn1.style.color = "white";
+
+        let listItems = document.querySelectorAll(".container ol li");
+        listItems.forEach((item, index) => {
+            if ((index + 1) % 2 === 0) {
+                item.classList.add("hidden-list");
+            }
+        });
+
+        let paragraphs = document.querySelectorAll(".container p");
+        paragraphs.forEach((p, index) => {
+            if ((index + 1) % 2 !== 0) {
+                p.classList.add("styled-paragraph");
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
